@@ -26,7 +26,7 @@ class PKPostCodeField(RegexField):
         'invalid': _('Enter a 5 digit postcode.'),
     }
 
-    def __init__(self, max_length=4, min_length=None, *args, **kwargs):
+    def __init__(self, max_length=5, min_length=5, *args, **kwargs):
         super(PKPostCodeField, self).__init__(r'^\d{5}$',
                                               max_length, min_length, *args, **kwargs)
 
