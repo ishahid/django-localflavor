@@ -3,7 +3,6 @@ Pakistani-specific Form helpers
 """
 
 from __future__ import absolute_import, unicode_literals
-
 import re
 
 from django.core.validators import EMPTY_VALUES
@@ -14,6 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .pk_states import STATE_CHOICES
 
+POSTCODE_DIGITS_RE = re.compile(r'^(\d{5})$')
 PHONE_DIGITS_RE = re.compile(r'^(\d{9,11})$')
 
 
@@ -26,9 +26,8 @@ class PKPostCodeField(RegexField):
         'invalid': _('Enter a 5 digit postcode.'),
     }
 
-    def __init__(self, max_length=5, min_length=5, *args, **kwargs):
-        super(PKPostCodeField, self).__init__(r'^\d{5}$',
-                                              max_length, min_length, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(PKPostCodeField, self).__init__(POSTCODE_DIGITS_RE, *args, **kwargs)
 
 
 class PKPhoneNumberField(CharField):
